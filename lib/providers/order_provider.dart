@@ -1,21 +1,43 @@
-import 'package:bhanumart_delivery_app/models/order.dart';
+// lib/providers/order_provider.dart
 import 'package:flutter/material.dart';
+import '../models/order.dart';
 
 class OrderProvider with ChangeNotifier {
-  final Order _order = Order(
-    orderId: 'JK548550801',
-    customerName: 'K. Pollard',
-    orderType: 'Delivery',
-    dateTime: '26/03/2024 16:00',
-    paymentStatus: 'Unpaid',
-    status: 'Arrived at Destination',
-    deliveryAddress: 'Building Number: 43, Dutta Street, 92, Hinjewadi, Dadra and Nagar Haveli, Vadodara, 473470',
-    mobileNumber: '+91 8451110000',
-    items: [
-      'Mi A series 108 cm (43 inch) Full HD LED Smart Google TV 2023 Edition with FHD',
-      'Mi A series 108 cm (43 inch) Full HD LED Smart Google TV 2023 Edition with FHD',
-    ],
-  );
+  List<Order> _orders = [
+    // Sample orders
+    Order(
+      orderId: 'JK548550801',
+      customerName: 'K. Pollard',
+      orderType: 'Delivery',
+      dateTime: '26/03/2024 16:00',
+      paymentStatus: 'Unpaid',
+      status: 'Arrived at Destination',
+      deliveryAddress: 'Building Number: 43, Dutta Street, 92, Hinjewadi, Dadra and Nagar Haveli, Vadodara, 473470',
+      mobileNumber: '+91 8451110000',
+      items: [
+        'Mi A series 108 cm (43 inch) Full HD LED Smart Google TV 2023 Edition with FHD',
+        'Mi A series 108 cm (43 inch) Full HD LED Smart Google TV 2023 Edition with FHD',
+      ],
+    ),
+    // Add more orders here
+  ];
 
-  Order get order => _order;
+  List<Order> _filteredOrders = [];
+
+  OrderProvider() {
+    _filteredOrders = _orders;
+  }
+
+  List<Order> get orders => _filteredOrders;
+
+  void searchOrders(String query) {
+    if (query.isEmpty) {
+      _filteredOrders = _orders;
+    } else {
+      _filteredOrders = _orders.where((order) {
+        return order.orderId.contains(query);
+      }).toList();
+    }
+    notifyListeners();
+  }
 }

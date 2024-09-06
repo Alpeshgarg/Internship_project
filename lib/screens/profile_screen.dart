@@ -9,7 +9,7 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('Profile', style: TextStyle(fontSize: 20, color: Colors.white,),),
         backgroundColor: Colors.blueAccent,
         actions: [
           IconButton(
@@ -35,9 +35,9 @@ class ProfileScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       // Profile Picture
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 40,
-                        backgroundImage: AssetImage('assets/images/Alpesh_garg.png'), // Add your image asset
+                        backgroundImage: AssetImage('assets/images/Alpesh_garg.png'), 
                       ),
                       const SizedBox(width: 16),
                       // Profile Details

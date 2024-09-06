@@ -55,7 +55,19 @@ class AvailableDeliveriesScreen extends StatelessWidget {
               ),
               child: ListTile(
                 leading: Image.asset('lib/images/Alpesh_Garg.png'),
-                title: const Text('Order Id : AJ8524185262'),
+    
+                title: RichText(
+              text: const TextSpan(
+                text: 'Order id: ',
+                style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                children: [
+                  TextSpan(
+                    text: '10055228552',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
                 subtitle: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -152,7 +164,7 @@ class AvailableDeliveriesScreen extends StatelessWidget {
                     children: [
                       _buildOrderStat('15', 'Today\'s Orders', Colors.blue),
                       _buildOrderStat('55', 'This Week Orders', Colors.purple),
-                      _buildOrderStat('35', 'This Month Orders', Colors.green),
+                      _buildOrderStat('55', 'This Month Orders', Colors.green),
                     ],
                   ),
                 ),

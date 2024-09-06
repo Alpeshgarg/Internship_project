@@ -11,6 +11,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  late GoogleMapController _controller;
 
   @override
   void initState() {
@@ -18,6 +19,13 @@ class _MapScreenState extends State<MapScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<LocationProvider>(context, listen: false).fetchCurrentLocation();
     });
+  }
+
+  void _goToCurrentLocation() {
+    final locationProvider = Provider.of<LocationProvider>(context, listen: false);
+    if (locationProvider.currentLocation != null) {
+      _controller.animateCamera(CameraUpdate.newLatLng(locationProvider.currentLocation!));
+    }
   }
 
   @override
@@ -28,44 +36,54 @@ class _MapScreenState extends State<MapScreen> {
       appBar: AppBar(
         title: const Text('Map'),
         backgroundColor: Colors.blueAccent,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.my_location),
+            onPressed: _goToCurrentLocation,
+          ),
+        ],
       ),
       body: locationProvider.currentLocation == null
           ? const Center(child: CircularProgressIndicator())
-          : GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: locationProvider.currentLocation!,
-                zoom: 14.0,
-              ),
-              onMapCreated: (GoogleMapController controller) {
-                // You can set the map controller here for further use
-              },
-              markers: {
-                if (locationProvider.currentLocation != null)
-                  Marker(
-                    markerId: const MarkerId('currentLocation'),
-                    position: locationProvider.currentLocation!,
-                    infoWindow: const InfoWindow(title: 'Your Location'),
+          : Stack(
+              children: [
+                GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: locationProvider.currentLocation!,
+                    zoom: 14.0,
                   ),
-                if (locationProvider.destination != null)
-                  Marker(
-                    markerId: const MarkerId('destination'),
-                    position: locationProvider.destination!,
-                    infoWindow: const InfoWindow(title: 'Delivery Location'),
-                  ),
-              },
-              polylines: locationProvider.destination != null
-                  ? {
-                      Polyline(
-                        polylineId: const PolylineId('route'),
-                        points: [
-                          locationProvider.currentLocation!,
-                          locationProvider.destination!,
-                        ],
-                        color: Colors.blue,
-                        width: 5,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller = controller;
+                  },
+                  markers: {
+                    if (locationProvider.currentLocation != null)
+                      Marker(
+                        markerId: const MarkerId('currentLocation'),
+                        position: locationProvider.currentLocation!,
+                        infoWindow: const InfoWindow(title: 'Your Location'),
                       ),
-                    }
-                  : {},
+                    if (locationProvider.destination != null)
+                      Marker(
+                        markerId: const MarkerId('destination'),
+                        position: locationProvider.destination!,
+                        infoWindow: const InfoWindow(title: 'Delivery Location'),
+                      ),
+                  },
+                  polylines: locationProvider.destination != null
+                      ? {
+                          Polyline(
+                            polylineId: const PolylineId('route'),
+                            points: [
+                              locationProvider.currentLocation!,
+                              locationProvider.destination!,
+                            ],
+                            color: Colors.blue,
+                            width: 5,
+                          ),
+                        }
+                      : {},
+                ),
+              ],
             ),
     );
   }

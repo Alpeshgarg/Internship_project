@@ -19,7 +19,10 @@ class CollectedMoneyScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Collected Money'),
+        backgroundColor: Colors.blueAccent,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: const Text('Collected Money', style: TextStyle(fontSize: 20, color: Colors.white,),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

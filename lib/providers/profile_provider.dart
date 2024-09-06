@@ -9,7 +9,7 @@ class ProfileProvider with ChangeNotifier {
   String get phone => _phone;
   String get email => _email;
 
-  // You can add methods to update the profile information if necessary.
+  // We can add methods to update the profile information if necessary.
   void updateProfile(String name, String phone, String email) {
     _name = name;
     _phone = phone;

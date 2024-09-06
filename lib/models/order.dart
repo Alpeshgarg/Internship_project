@@ -20,8 +20,4 @@ class Order {
     required this.mobileNumber,
     required this.items,
   });
-
-  get length => null;
-
-  String get id => orderId;
 }
