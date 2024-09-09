@@ -1,3 +1,4 @@
+import 'package:bhanumart_delivery_app/providers/detail_provider.dart';
 import 'package:bhanumart_delivery_app/providers/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,10 +15,10 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        
         ChangeNotifierProvider(create: (_) => ProfileProvider()),
         ChangeNotifierProvider(create: (_) => OrderProvider()),
         ChangeNotifierProvider(create: (_) => LocationProvider()),
+        ChangeNotifierProvider(create: (_) => DetailProvider()),
 
       ],
       child: MaterialApp(
@@ -32,7 +33,7 @@ void main() {
           '/available': (context) => const AvailableDeliveriesScreen(),
           '/collected': (context) => CollectedMoneyScreen(),
           '/history': (context) => const DeliveryHistoryScreen(),
-          '/profile': (context) => ProfileScreen(),
+          '/profile': (context) => const ProfileScreen(),
           '/map': (context) => const MapScreen(),
         },
       ),
@@ -54,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
     const AvailableDeliveriesScreen(),
     CollectedMoneyScreen(),
     const DeliveryHistoryScreen(),
-    ProfileScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/order.dart';
 
 class OrderProvider with ChangeNotifier {
-  List<Order> _orders = [
+  final List<Order> _orders = [
     // Sample orders
     Order(
       orderId: 'JK548550801',
@@ -15,8 +15,8 @@ class OrderProvider with ChangeNotifier {
       deliveryAddress: 'Building Number: 43, Dutta Street, 92, Hinjewadi, Dadra and Nagar Haveli, Vadodara, 473470',
       mobileNumber: '+91 8451110000',
       items: [
-        'Mi A series 108 cm (43 inch) Full HD LED Smart Google TV 2023 Edition with FHD',
-        'Mi A series 108 cm (43 inch) Full HD LED Smart Google TV 2023 Edition with FHD',
+        'Burger',
+        'Pizza',
       ],
     ),
     // Add more orders here

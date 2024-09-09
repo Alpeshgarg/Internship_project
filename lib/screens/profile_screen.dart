@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/profile_provider.dart';
+import 'edit_profile_screen.dart'; 
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final profileProvider = Provider.of<ProfileProvider>(context);
@@ -11,14 +14,6 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile', style: TextStyle(fontSize: 20, color: Colors.white,),),
         backgroundColor: Colors.blueAccent,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {
-              // Handle notification button click
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -37,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
                       // Profile Picture
                       const CircleAvatar(
                         radius: 40,
-                        backgroundImage: AssetImage('assets/images/Alpesh_garg.png'), 
+                        backgroundImage: AssetImage('assets/images/Alpesh_Garg.png'), 
                       ),
                       const SizedBox(width: 16),
                       // Profile Details
@@ -46,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           Text(
                             profileProvider.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -54,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           Row(
                             children: [
-                              Icon(Icons.phone, color: Colors.redAccent),
+                              const Icon(Icons.phone, color: Colors.redAccent),
                               const SizedBox(width: 8),
                               Text(profileProvider.phone),
                             ],
@@ -62,7 +57,7 @@ class ProfileScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           Row(
                             children: [
-                              Icon(Icons.email, color: Colors.redAccent),
+                              const Icon(Icons.email, color: Colors.redAccent),
                               const SizedBox(width: 8),
                               Text(profileProvider.email),
                             ],
@@ -75,7 +70,14 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             // Menu Options
-            MenuOption(icon: Icons.person, text: 'Edit Profile', onTap: () {}),
+            MenuOption(icon: Icons.person, text: 'Edit Profile', onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EditProfileScreen(), // Navigate to edit profile screen
+                ),
+              );
+            }),
             MenuOption(icon: Icons.file_copy, text: 'Documents', onTap: () {}),
             MenuOption(icon: Icons.headset_mic, text: 'Support', onTap: () {}),
             MenuOption(icon: Icons.help, text: 'FAQ', onTap: () {}),
@@ -95,18 +97,18 @@ class MenuOption extends StatelessWidget {
   final VoidCallback onTap;
 
   const MenuOption({
-    Key? key,
+    super.key,
     required this.icon,
     required this.text,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(icon, color: Colors.blueAccent),
       title: Text(text),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: const Icon(Icons.arrow_forward_ios),
       onTap: onTap,
     );
   }
